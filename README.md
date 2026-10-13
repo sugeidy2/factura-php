@@ -1,28 +1,37 @@
-# Calculadora de Sueldo Quincenal
+# Sistema de Emisión de Factura de Venta
 
-Aplicación web en PHP que calcula el sueldo quincenal bruto y neto de un trabajador a partir de sus horas laboradas en turnos diurno, vespertino y nocturno, aplicando las retenciones de ley correspondientes.
+Aplicación web desarrollada en PHP y HTML para la emisión automatizada de facturas de venta de artículos. El sistema realiza el cálculo del subtotal bruto, aplica el Impuesto al Valor Agregado (IVA) y evalúa la aplicación de un descuento sobre el monto final.
 
-## Funcionamiento
-1. **Ingreso de datos:** Se capturan el nombre, cédula y horas trabajadas por jornada.
-2. **Cálculo de sueldo bruto:** Multiplica las horas por la tarifa de cada turno:
-   - Diurno: 675,00 Bs.
-   - Vespertino: 700,00 Bs.
-   - Nocturno: 956,23 Bs.
-3. **Aplicación de deducciones:** Calcula el Ahorro Habitacional (AH) y Seguro Social (SSO) evaluando el sueldo bruto en tres escalas:
-   - **Menor a 85.000 Bs.:** AH = 0.1% | SSO = 0.15%
-   - **Entre 85.000 Bs. y 150.000 Bs.:** AH = 0.15% | SSO = 0.20%
-   - **Mayor a 150.000 Bs.:** AH = 0.30% | SSO = 0.25%
-4. **Resultado:** Muestra los datos del trabajador, el desglose de subtotales, el sueldo bruto, el monto descontado por cada concepto y el sueldo neto final.
+## Reglas de Negocio y Cálculo
+
+1. **Ingreso de datos (Formulario HTML):**
+   - Descripción del artículo.
+   - Cantidad adquirida.
+   - Precio unitario de venta ($).
+
+2. **Cálculos y Lógica del Sistema:**
+   - **Precio Bruto (Subtotal Base):** `Cantidad × Precio Unitario`
+   - **IVA (12%):** `Precio Bruto × 0.12`
+   - **Total de Venta con IVA:** `Precio Bruto + IVA`
+   - **Descuento Especial (15%):** Se aplica un **15% de descuento** sobre el monto total con IVA únicamente **si este supera los $150**.
+   - **Monto Neto a Pagar:** `(Precio Bruto + IVA) - Descuento`
+
+3. **Desglose de Factura:**
+   - Datos del artículo (Descripción, Cantidad, Precio Unitario).
+   - Subtotal Bruto.
+   - Monto del IVA (12%).
+   - Estatus del descuento (*Aplica (15%)* con el monto descontado, o *No Aplica*).
+   - Monto total neto final a cancelar.
 
 ## Instrucciones de Ejecución
 
-### En XAMPP
-1. Guardar la carpeta en `C:\xampp\htdocs\sugeidy\`.
-2. Iniciar el servicio Apache en XAMPP.
-3. Abrir en el navegador: `http://localhost/sugeidy/sueldo_quincenal.php`
+### Opción 1: Servidor Apache (XAMPP)
+1. Colocar la carpeta del proyecto en la ruta de XAMPP (`htdocs`).
+2. Iniciar el módulo **Apache** desde el panel de control de XAMPP.
+3. Abrir en el navegador: `http://localhost/nombre_carpeta/factura.php`
 
-### Con Servidor Integrado de PHP
+### Opción 2: Servidor Integrado de PHP
 1. Abrir la terminal en la carpeta del proyecto.
-2. Ejecutar:
+2. Iniciar el servidor local:
    ```bash
    php -S localhost:8000
